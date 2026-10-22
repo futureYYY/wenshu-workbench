@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <title>文枢</title>
+  <path d="M3 24H11" stroke="#1E2B38" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M35 21.5L39.5 17H45" stroke="#0B6FD6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M35 26.5L39.5 31H45" stroke="#2DBE6C" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="11" y="17" width="24" height="14" rx="7" fill="#FFFFFF" stroke="#1E2B38" stroke-width="2.5"/>
+</svg>

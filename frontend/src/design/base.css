@@ -1,0 +1,272 @@
+/* Tailwind 入口与基础排版。令牌在 tokens.css，这里把它们接入 Tailwind 的主题变量。 */
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./fonts.css";
+
+/* 去掉 Tailwind 自带的调色板，只留设计令牌，避免误用硬编码颜色 */
+@theme {
+  --color-*: initial;
+
+  --font-sans: "Noto Sans SC Variable", "Microsoft YaHei UI", system-ui, sans-serif;
+  --font-num: "Overpass Variable", "Noto Sans SC Variable", "Microsoft YaHei UI", system-ui, sans-serif;
+  --font-mono: "Overpass Mono", "Noto Sans SC Variable", "Microsoft YaHei UI", ui-monospace, monospace;
+
+  --text-xs: 12px;
+  --text-xs--line-height: 1.5;
+  --text-sm: 13px;
+  --text-sm--line-height: 1.55;
+  --text-base: 14px;
+  --text-base--line-height: 1.7;
+  --text-md: 16px;
+  --text-md--line-height: 1.8;
+  --text-lg: 18px;
+  --text-lg--line-height: 1.6;
+  --text-xl: 22px;
+  --text-xl--line-height: 1.4;
+  --text-2xl: 28px;
+  --text-2xl--line-height: 1.3;
+  --text-num-l: 28px;
+  --text-num-l--line-height: 1;
+  --text-num-xl: 48px;
+  --text-num-xl--line-height: 1;
+
+  --radius-pill: 9999px;
+  --radius-control: 8px;
+  --radius-panel: 14px;
+  --radius-drawer: 16px;
+  --radius-popover: 10px;
+  --radius-tooltip: 6px;
+  --radius-kbd: 4px;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-on-ink: var(--on-ink);
+  --color-overlay: var(--overlay);
+  --color-running: var(--status-running);
+  --color-ok: var(--status-ok);
+  --color-warn: var(--status-warn);
+  --color-danger: var(--status-danger);
+  --color-muted: var(--status-muted);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --shadow-float: var(--float-shadow);
+}
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+body {
+  margin: 0;
+  min-width: 1100px;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+/* 焦点环：所有可交互元素统一，只在键盘操作时出现 */
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+/* 安静的滚动条 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+/* 页面标题聚焦时不需要焦点环（路由切换后把焦点移到标题，方便屏幕阅读器） */
+[data-page-title]:focus {
+  outline: none;
+}
+
+/* ---- 浮层的进入（Reka UI 在元素上标 data-state） ---- */
+@keyframes ws-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ws-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ws-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes ws-drawer-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ws-drawer-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+
+@keyframes ws-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+@keyframes ws-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes ws-shuttle {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+.ws-popover[data-state="open"],
+.ws-popover[data-state="delayed-open"],
+.ws-popover[data-state="instant-open"] {
+  animation: ws-pop-in var(--dur-fast) var(--ease-out);
+}
+
+/* 下拉、提示、Popover 关闭时不播退场动画、立刻卸载（06 第 8.2 节只规定了进入动画）。
+   Reka UI 的这几种浮层在退场动画期间仍算最上层，这时按 Esc 会被正在消失的浮层接走，抽屉、对话框就关不掉 */
+.ws-popover[data-state="closed"] {
+  animation: none;
+}
+
+.ws-overlay[data-state="open"] {
+  animation: ws-fade-in var(--dur-base) var(--ease-out);
+}
+
+.ws-overlay[data-state="closed"] {
+  animation: ws-fade-out 180ms var(--ease-in);
+}
+
+/* ---- toast：像站台电子屏，墨色底（覆盖 vue-sonner 默认配色） ---- */
+:root [data-sonner-toaster][data-theme] {
+  --normal-bg: var(--ink);
+  --normal-text: var(--on-ink);
+  --normal-border: var(--ink);
+  --success-bg: var(--ink);
+  --success-text: var(--on-ink);
+  --success-border: var(--ink);
+  --error-bg: var(--ink);
+  --error-text: var(--on-ink);
+  --error-border: var(--ink);
+  --border-radius: var(--radius-control);
+  font-family: var(--font-sans);
+}
+
+:root [data-sonner-toaster] [data-sonner-toast] {
+  box-shadow: var(--float-shadow);
+  font-size: var(--text-base);
+}
+
+:root [data-sonner-toaster] [data-sonner-toast] [data-button] {
+  background: var(--on-ink);
+  color: var(--ink);
+  border-radius: var(--radius-control);
+  font-weight: 500;
+}
+
+/* ---- 减少动态效果：关闭循环动画 ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  .ws-breathe,
+  .ws-skeleton,
+  .ws-shuttle {
+    animation: none !important;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-base);
+}

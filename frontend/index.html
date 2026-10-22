@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>文枢</title>
+    <!--
+      主题防闪烁：在样式加载之前读取 localStorage 的 wenshu.theme 和系统设置，写好 data-theme。
+      下面两个底色与 tokens.css 的 --bg 相同，只用于样式表到达之前的那一瞬间。
+    -->
+    <style>
+      html { background: #F5F7FA; color-scheme: light; }
+      html[data-theme="dark"] { background: #0F1B2A; color-scheme: dark; }
+    </style>
+    <script>
+      (function () {
+        var theme = "system";
+        try {
+          theme = localStorage.getItem("wenshu.theme") || "system";
+        } catch (e) {
+          theme = "system";
+        }
+        var dark =
+          theme === "dark" ||
+          (theme === "system" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

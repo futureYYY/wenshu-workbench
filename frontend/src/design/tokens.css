@@ -1,0 +1,185 @@
+/*
+ * 设计令牌（06 第 3 节）。组件里只引用这些变量，不写色值。
+ * 亮色是默认值；暗色（夜间线网）用 data-theme="dark" 覆盖。
+ * 选择器同时匹配任意元素上的 data-theme，设置页的主题示意图可以局部使用另一套主题。
+ */
+
+:root,
+[data-theme="light"] {
+  /* 基础色 */
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --surface-2: #eef2f6;
+  --surface-3: #e3e9f0;
+  --border: #dce2e9;
+  --border-strong: #c3ccd6;
+  --ink: #1e2b38;
+  --ink-2: #5e6b78;
+  --ink-3: #8a96a3;
+  --on-ink: #ffffff;
+  --overlay: rgba(30, 43, 56, 0.24);
+
+  /* 状态色：只用于状态，并且总是配图标和文字 */
+  --status-running: #1b64c8;
+  --status-ok: #18794e;
+  --status-warn: #96590b;
+  --status-danger: #c2372f;
+  --status-muted: #5e6b78;
+
+  /* 线路色（序号 0–10）与“其他”灰 */
+  --line-0: #0b6fd6;
+  --line-1: #2dbe6c;
+  --line-2: #f2a900;
+  --line-3: #7b5cd6;
+  --line-4: #0ea5a4;
+  --line-5: #f2711c;
+  --line-6: #c2368f;
+  --line-7: #8c6d46;
+  --line-8: #4e7d22;
+  --line-9: #2f4fa2;
+  --line-10: #c23b3b;
+  --line-other: #9aa5b1;
+
+  /* 徽标文字的两种候选：白字和本主题的墨色字，palette.ts 按对比度取高者（06 第 3.3 节） */
+  --badge-ink: #1e2b38;
+  --badge-white: #ffffff;
+
+  /* 浮层阴影（只有抽屉、对话框、下拉、命令面板、toast 使用） */
+  --float-shadow: 0 12px 32px -8px rgba(16, 32, 48, 0.24), 0 2px 6px rgba(16, 32, 48, 0.12);
+
+  /* 线网图微光：亮色主题关闭 */
+  --line-glow: 0;
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"],
+[data-theme="dark"] {
+  --bg: #0f1b2a;
+  --surface: #152436;
+  --surface-2: #1b2d42;
+  --surface-3: #22374f;
+  --border: #253a52;
+  --border-strong: #34506e;
+  --ink: #e8eef5;
+  --ink-2: #a3b1c0;
+  --ink-3: #74859a;
+  --on-ink: #0f1b2a;
+  --overlay: rgba(4, 10, 18, 0.6);
+
+  --status-running: #5aa2ff;
+  --status-ok: #3ccb7f;
+  --status-warn: #f0b347;
+  --status-danger: #ff6b61;
+  --status-muted: #8d9bab;
+
+  --line-0: #4c9bff;
+  --line-1: #3ccb7f;
+  --line-2: #ffc53d;
+  --line-3: #a08bff;
+  --line-4: #2ed3c6;
+  --line-5: #ff8f4c;
+  --line-6: #f06cc0;
+  --line-7: #c49a6c;
+  --line-8: #8cc152;
+  --line-9: #6f8cff;
+  --line-10: #ff6b6b;
+  --line-other: #7a8796;
+
+  --badge-ink: #0f1b2a;
+  --badge-white: #ffffff;
+
+  --float-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.4);
+
+  --line-glow: 1;
+
+  color-scheme: dark;
+}
+
+:root {
+  /* 字体（与 base.css 的 @theme 相同；这里再写一遍，保证组件样式里的 var() 总能取到） */
+  --font-sans: "Noto Sans SC Variable", "Microsoft YaHei UI", system-ui, sans-serif;
+  --font-num: "Overpass Variable", "Noto Sans SC Variable", "Microsoft YaHei UI", system-ui, sans-serif;
+  --font-mono: "Overpass Mono", "Noto Sans SC Variable", "Microsoft YaHei UI", ui-monospace, monospace;
+
+  /* 字号 */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-num-l: 28px;
+  --text-num-xl: 48px;
+
+  /* 间距：4 px 为基数 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* 圆角按层级区分 */
+  --radius-pill: 9999px;
+  --radius-control: 8px;
+  --radius-panel: 14px;
+  --radius-drawer: 16px;
+  --radius-popover: 10px;
+  --radius-tooltip: 6px;
+  --radius-kbd: 4px;
+  --radius-chip: 4px;
+
+  /* 层级 */
+  --z-header: 10;
+  --z-nav: 20;
+  --z-dropdown: 40;
+  --z-drawer: 50;
+  --z-dialog: 60;
+  --z-palette: 70;
+  /* 下拉、弹出层、提示渲染在 body 上：要能出现在抽屉、对话框里的触发器上方，所以放在对话框之上 */
+  --z-popover: 75;
+  --z-drop: 80;
+  --z-toast: 90;
+
+  /* 动效 */
+  --dur-press: 80ms;
+  --dur-fast: 140ms;
+  --dur-base: 220ms;
+  --dur-slow: 360ms;
+  --dur-line: 900ms;
+  --dur-car: 160ms;
+  --dur-number: 300ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-move: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* 布局 */
+  --nav-width: 76px;
+  --pagebar-height: 56px;
+  --content-pad: 32px;
+  --form-max: 880px;
+  --reading-max: 720px;
+}
+
+@media (max-width: 1279px) {
+  :root {
+    --content-pad: 24px;
+  }
+}
+
+/* 减少动态效果：时长压到 120 ms 以内，仍能感知状态变化（06 第 8.3 节） */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-base: 120ms;
+    --dur-slow: 120ms;
+    --dur-line: 0ms;
+    --dur-car: 0ms;
+    --dur-number: 0ms;
+  }
+}

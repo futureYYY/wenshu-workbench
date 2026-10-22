@@ -1,0 +1,15 @@
+[
+  {
+    "_说明": "复制为 models.local.json（与本文件同目录，不提交），填入真实值后重启文枢。启动时按名称导入：库里没有同名模型才创建，密钥加密保存；之后以界面里的修改为准。",
+    "name": "我的模型",
+    "base_url": "https://你的接口地址/v1",
+    "api_key": "在这里填 API Key",
+    "model": "模型名",
+    "context_window": 32768,
+    "max_output_tokens": 1024,
+    "concurrency_cap": 10,
+    "json_mode": false,
+    "extra_headers": {},
+    "extra_body": {}
+  }
+]

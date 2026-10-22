@@ -1,0 +1,7 @@
+# 前端工程自己的忽略规则（根目录 .gitignore 也覆盖了这些）。目录规则以 / 开头，只匹配 frontend/ 下这一层
+node_modules/
+/dist/
+/test-results/
+/playwright-report/
+/.env.local
+*.tsbuildinfo

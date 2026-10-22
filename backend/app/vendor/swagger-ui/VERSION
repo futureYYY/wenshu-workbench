@@ -1,0 +1,5 @@
+swagger-ui-dist 5.34.0
+source: https://registry.npmjs.org/swagger-ui-dist/-/swagger-ui-dist-5.34.0.tgz
+integrity: sha512-H6tAIjr3XqE31PbkZl0OFya1ziRLDfTwh3J6OHdumPtPCLfjTnyLeagl/55kFNZcTOz9a9QI9WP0FXldwiGJag==
+files: swagger-ui-bundle.js, swagger-ui.css, LICENSE (Apache-2.0), taken unmodified from package/
+served at /docs-assets/ (docs/02-architecture.md section 2.2, docs/04-api.md section 12)

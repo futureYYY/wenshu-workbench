@@ -1,0 +1,34 @@
+# 内容按 08 第 2 节。目录名一律以 / 开头、锚定在项目根目录：不带锚点的 data/ 会连
+# frontend/src/components/data/（DataGrid、PreviewGrid 的源码）一起忽略，而且不会有任何提示。
+/data/
+/.devdata/
+/.e2edata/
+/testdata/
+/release/
+/build/
+/backend/.venv/
+/backend/app/static/
+/frontend/dist/
+/frontend/test-results/
+/frontend/playwright-report/
+/frontend/.env.local
+/scripts/local.env.cmd
+/packaging/version_info.txt
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# 以下是文档之外补充的条目
+# 默认自定义模型的本机配置文件，含明文 API Key
+/backend/models.local.json
+# 在 backend/ 下直接运行 uvicorn、又没有设置 WENSHU_DATA_DIR 时的数据目录（含 secret.key）
+/backend/data/
+# 源码版运行 python -m app.launcher --selftest 时的自检数据目录
+/backend/data-selftest/
+
+/交付报告.md
+/变更清单.md
+/文枢-完整设计方案.md
+/_*.log

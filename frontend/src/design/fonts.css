@@ -1,0 +1,18 @@
+/*
+ * 字体（06 第 3.4 节）。字体文件来自 Fontsource 的 npm 包，在 main.ts 里导入，随构建产物分发，不从网络加载。
+ * 这里只放与字体相关的工具类。
+ */
+
+/* 导视数字：Overpass，等宽数字 */
+.num {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: 0;
+}
+
+/* 等宽：只用于提示词编辑器、原始输出、JSON */
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}

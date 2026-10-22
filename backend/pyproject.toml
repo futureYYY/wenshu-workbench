@@ -1,0 +1,24 @@
+# 只放工具配置（Ruff、pytest）。版本号的唯一来源是 app/__init__.py 的 __version__。
+
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+extend-exclude = ["app/static", ".venv", "data"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+# E501：中文长句不按行宽折行；B008：FastAPI 的 Query()/Depends() 写在默认值里是惯用法
+ignore = ["E501", "B008"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "-ra"
+filterwarnings = [
+  "ignore::DeprecationWarning:pystray.*",
+]

@@ -171,6 +171,8 @@ onMounted(async () => {
     <footer class="ws-about__footer">
       <span>文枢 v{{ version }}</span>
       <span>·</span>
+      <a class="ws-about__github" href="https://github.com/futureYYY/wenshu-workbench" target="_blank" rel="noreferrer">GitHub</a>
+      <span>·</span>
       <span>© 2026 齐雨凡</span>
       <span>·</span>
       <span>不收集使用数据，文件和密钥保存在本机</span>
@@ -551,6 +553,16 @@ onMounted(async () => {
   margin: var(--space-2) 0 0;
   color: var(--ink-2);
   font-size: var(--text-sm);
+}
+
+.ws-about__github {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.ws-about__github:hover {
+  color: var(--ink);
+  text-decoration: underline;
 }
 
 .ws-about__footer {
